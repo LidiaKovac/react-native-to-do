@@ -56,11 +56,12 @@ setTasks(prevTs => prevTs.map(t => {if(t.id === id) {t.done = !t.done} return t}
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <TextInput onSubmitEditing={handleBlur} />
+        <Text> To do</Text>
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          {tasks.map((task)=> <CheckBox
+          {tasks.filter(task => task.done === false).map((task)=> <CheckBox
           key={task.id}
           title={task.task}
                                       center
@@ -86,6 +87,37 @@ setTasks(prevTs => prevTs.map(t => {if(t.id === id) {t.done = !t.done} return t}
                                       onPress={()=> handleCheck(task.id)}
                                     />) }
         </View>
+        <Text> Done </Text>
+        <View
+                  style={{
+                    backgroundColor: isDarkMode ? Colors.black : Colors.white,
+                  }}>
+                  {tasks.filter(task => task.done === true).map((task)=> <CheckBox
+                  key={task.id}
+                  title={task.task}
+                                              center
+                                              checkedIcon={
+                                                <Icon
+                                                  name="check-box"
+                                                  type="material"
+                                                  color="green"
+                                                  size={25}
+                                                  iconStyle={{ marginRight: 10 }}
+                                                />
+                                              }
+                                              uncheckedIcon={
+                                                <Icon
+                                                  name="check-box-outline-blank"
+                                                  type="material"
+                                                  color="grey"
+                                                  size={25}
+                                                  iconStyle={{ marginRight: 10 }}
+                                                />
+                                              }
+                                              checked={task.done}
+                                              onPress={()=> handleCheck(task.id)}
+                                            />) }
+                </View>
       </ScrollView>
     </SafeAreaView>
   );
